@@ -38,7 +38,7 @@ public class loginStepDefs {
     @Then("the page contains {string}")
     public void the_page_contains(String pageTitle) {
         System.out.println("pageTitle = " + pageTitle);
-        BrowserUtils.waitFor(2);
+        BrowserUtils.waitFor(3);
         Assert.assertTrue(Driver.get().getTitle().contains(pageTitle));
     }
 

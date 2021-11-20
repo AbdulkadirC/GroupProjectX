@@ -5,13 +5,12 @@ import com.translantik.pages.LoginPage;
 import com.translantik.utilities.BrowserUtils;
 import com.translantik.utilities.ConfigurationReader;
 import com.translantik.utilities.Driver;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 
 public class loginStepDefs {
@@ -24,6 +23,11 @@ public class loginStepDefs {
 
         Driver.get().get(ConfigurationReader.get("url"));
     }
+
+    @And("the user enters own {string} and {string}")
+    public void theUserEntersOwnAnd(String arg0, String arg1) {
+    }
+
 
     @When("the user log in as {string}")
     public void the_user_log_in_as(String userType) {
@@ -93,24 +97,15 @@ public class loginStepDefs {
 
     @Given("the user should be able to click on the link")
     public void the_user_should_be_able_to_click_on_the_link() {
-        String expectedUrl=Driver.get().getCurrentUrl();
-        BrowserUtils.waitFor(1);
         loginPage.forgotPasswordLink.click();
         String actualLink=Driver.get().getCurrentUrl();
-        //Assert.assertEquals("verify the link is clickable",expectedUrl,actualLink);
-        if(!expectedUrl.equals(actualLink)){
-            Assert.assertTrue("verify that the link is clickable",true);
-            System.out.println("actualLink = " + actualLink);
-        }else{
-            Assert.assertFalse("verify that the link is not clickable",false);
-            System.out.println("expectedUrl = " + expectedUrl);
-        }
+        Assert.assertEquals("verify the link is clickable","http://qa.translantik.com/user/reset-request",actualLink);
+
     }
 
     @Then("the user should land on {string} page")
     public void the_user_should_land_on_page(String forgotPassword) {
-        loginPage.forgotPasswordLink.click();
-        forgotPassword=Driver.get().getTitle();
+        forgotPassword=loginPage.forgotPasswordPage.getText();
         Assert.assertEquals("Forgot Password",forgotPassword);
     }
 
@@ -145,5 +140,7 @@ public class loginStepDefs {
         String expectedTitle="Dashboard";
         Assert.assertEquals("verify the title",actualTitle,expectedTitle);
     }
+
+
 
 }

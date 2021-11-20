@@ -3,11 +3,14 @@ Feature: user should be able to login
 
   Background:
     Given the user is on the login page
-@valid
+    And the user enters own "userType" and "password"
+
+
+#@TRN-1090
+  @TRN-1104
   Scenario Outline: login with different accounts
     When the user log in as "<userType>"
     Then the page contains "<title>"
-
 
     Examples:
       | userType    |    title      |
@@ -15,7 +18,8 @@ Feature: user should be able to login
       |sales_manager|Dashboard      |
       |store_manager|Dashboard      |
 
-  @invalidLogin
+  #@TRN-1095
+    @TRN-1105
   Scenario Outline: invalid username or password
     Given the user enter "<username>" and "<password>"
     Then the error "<message>" displayed
@@ -29,8 +33,9 @@ Feature: user should be able to login
     | storemanager     |   UserUser123  | "Invalid user name or password."  |
     | Salesmanager101  |  useruser      |  "Invalid user name or password." |
 
-    @userName
-    Scenario Outline: login with different accounts
+    #@TRN-1096
+      @TRN-1106
+    Scenario Outline: login with different accounts and verify username
       Given the user log in as "<userType>"
       Then the user can see own "<name>"
       Examples:
@@ -39,23 +44,27 @@ Feature: user should be able to login
         |sales_manager|John Doe|
         |store_manager|John Doe|
 
-      @userPasswordBullet
+      #@TRN-1097
+      @TRN-1107
       Scenario: the user should see password as bullet sign
         Given the user enter the following "<userType>"
         When the user enter own password
         Then the user see that as bullet sign
 
-        @forgotPasswordLink
+        #@TRN-1098
+        @TRN-1108
         Scenario: the user click on forgot password link
           Given the user should be able to click on the link
           Then the user should land on "Forgot Password" page
 
-        @rememberMeLink
+        #@TRN-1099
+        @TRN-1109
         Scenario: the user should be able to see Remember me link
           Given the user should be able to see "Remember me on this computer" link
           Then the link should be clickable
 
-          @enterButtonAction
+          #@TRN-1100
+          @TRN-1110
           Scenario: the enter button should be able work
             Given the user enter own username and press enter
             And the user enter own password and press enter

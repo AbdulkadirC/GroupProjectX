@@ -20,12 +20,12 @@ public class loginStepDefs {
 
     @Given("the user is on the login page")
     public void the_user_is_on_the_login_page() {
-
         Driver.get().get(ConfigurationReader.get("url"));
     }
 
     @And("the user enters own {string} and {string}")
     public void theUserEntersOwnAnd(String arg0, String arg1) {
+
     }
 
 
